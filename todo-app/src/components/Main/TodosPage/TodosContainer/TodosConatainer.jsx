@@ -4,16 +4,14 @@ import {getTodos, createTodo, updateTodo, deleteTodo} from '../../../../logics/a
 import './TodosContainer.css';
 
 const TodosContainer = (props) => {
-  let newTodo = React.createRef()
-
   useEffect(getTodos, [])
 
   return (
     <div>
       <div className="inputContainer">
         <input className="form-control" type="text" 
-          placeholder="Add a task" maxLength="50"
-          onKeyPress={(e) => createTodo(e, newTodo.current.value)} ref={newTodo} 
+          placeholder="Add a task" maxLength="50" 
+          onKeyPress={(e) => createTodo(e)} 
         />
       </div>
       <div className="listWrapper">

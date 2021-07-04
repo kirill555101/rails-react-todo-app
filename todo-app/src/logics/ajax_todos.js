@@ -28,18 +28,20 @@ const getTodos = () => {
         .catch(error => console.log(error))
 }
 
-const createTodo = (e, newTodo) => {
+const createTodo = (e) => {
+    const newTitle = e.target.value
     const token = Cookies.get(TOKEN_NAME)
     if (!token) {
         return
     }
-
-    if (e.key !== 'Enter' || newTodo === '') {
+    
+    if (e.key !== 'Enter' || newTitle === '') {
         return
     }
 
+    e.target.value = ''
     axios
-        .post(API_IP + '/api/todos', {todo: {title: newTodo}}, getHeader(token))
+        .post(API_IP + '/api/todos', {todo: {title: newTitle}}, getHeader(token))
         .then((response) => {
             store.dispatch({
                 type: CREATE_TODO, data: response.data
