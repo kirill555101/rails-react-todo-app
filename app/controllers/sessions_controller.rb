@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
       token = encode_token(payload)
       render json: { name: user.name, jwt: token }
     else
-      render json: { message: "Email or password are invalid" }
+      render json: { error: "Email or password are invalid" }
     end
   end
 
@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
       token = encode_token(payload)
       render json: { name: user.name, jwt: token }
     else
-      render json: { message: user.errors.full_messages }
+      render json: { error: user.errors.full_messages }
     end
   end
 
@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
     if @user
       render json: { name: @user.name }
     else
-      render json: { message: "You have not been logged", is_logged_in: false }
+      render json: { error: "You have not been logged", is_logged_in: false }
     end
   end
 end

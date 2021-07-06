@@ -3,8 +3,7 @@ class TodosController < ApplicationController
   before_action :check_user_auth
 
   def check_user_auth
-    p request
-    render json: { message: "You have not been logged", is_logged_in: false } unless @user
+    render json: { error: "You have not been logged", is_logged_in: false } unless @user
   end
 
   def index

@@ -20,7 +20,7 @@ const loginUser = (email, password) => {
     })
     .then((response) => {
       if (!response.data.name) {
-        setError(response.data.message)
+        setError(response.data.error)
         return
       }
 
@@ -53,7 +53,7 @@ const registerUser = (email, name, password, anotherPassword) => {
     })
     .then((response) => {
       if (!response.data.name) {
-        setError(response.data.message)
+        setError(response.data.error)
         return
       }
 
