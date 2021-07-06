@@ -1,14 +1,14 @@
 class ApplicationController < ActionController::API
     SECRET_TOKEN = 'this_is_secret_token'
 
-    before_action :session_user
+    before_action :set_session_user
 
     def encode_token(payload, exp = 24.hours.from_now)
         payload[:exp] = exp.to_i
         JWT.encode(payload, SECRET_TOKEN)
     end
 
-    def session_user
+    def set_session_user
         decoded_hash = decoded_token
         unless decoded_hash == nil || decoded_hash.empty?
             user_id = decoded_hash[0]['user_id']
