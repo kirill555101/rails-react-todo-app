@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
       payload = { user_id: user.id }
-      token = encode_token(payload)
+      token = get_encoded_token(payload)
       render json: { name: user.name, jwt: token }
     else
       render json: { error: "Email or password are invalid" }
@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
 
     if user.save
       payload = { user_id: user.id }
-      token = encode_token(payload)
+      token = get_encoded_token(payload)
       render json: { name: user.name, jwt: token }
     else
       render json: { error: user.errors.full_messages }

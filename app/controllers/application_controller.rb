@@ -3,13 +3,13 @@ class ApplicationController < ActionController::API
 
     before_action :set_session_user
 
-    def encode_token(payload, exp = 24.hours.from_now)
+    def get_encoded_token(payload, exp = 24.hours.from_now)
         payload[:exp] = exp.to_i
         JWT.encode(payload, SECRET_TOKEN)
     end
 
     def set_session_user
-        decoded_hash = decoded_token
+        decoded_hash = get_decoded_hash
         unless decoded_hash == nil || decoded_hash.empty?
             user_id = decoded_hash[0]['user_id']
             @user = User.find_by(id: user_id)
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::API
         request.headers['Authorization']
     end
 
-    def decoded_token
+    def get_decoded_hash
         auth_header = get_auth_header
         if auth_header
             token = auth_header.split(' ').last
